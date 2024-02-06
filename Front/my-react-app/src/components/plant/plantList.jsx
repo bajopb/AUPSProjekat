@@ -1,0 +1,92 @@
+import React, { useEffect, useState } from "react";
+import api from "../../api/api";
+import "../style/style.css"
+import Plant from "./plant";
+import AddPlant from "./addPlant";
+const PlantList=()=>{
+
+const [plants, setPlants]=useState();
+const [isAddModalOpen, setAddModalOpen] = useState(false);
+
+  const handleOpenAddModal = () => {
+    setAddModalOpen(true);
+  };
+
+  const handleCloseAddModal = () => {
+    setAddModalOpen(false);
+    fetch();
+  };
+
+  const handleAdd = async (newData) => {
+    try {
+      const res = await api.post("plant", newData);
+        fetch();      
+    } catch (error) {
+      alert(error);
+    }
+  };
+useEffect(() => {
+    
+
+    fetch();
+  }, []);
+
+
+  const fetch = async () => {
+    try {
+      const res = await api.get("plant");
+        setPlants(res.data);
+      
+    } catch (error) {
+      alert(error);
+    }
+  };
+  const handleDelete = async(id) => {
+    try {
+        await api.delete('plant/' + id);
+            fetch();
+        
+      } catch (error) {
+        alert(error);
+      }
+};
+
+return(
+    <div>
+      <h2>Postrojenja</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Naziv</th>
+            
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        {
+            plants && plants.length >0 && 
+            plants.map((e, index)=>
+            (<Plant key={index} data={e}  onDelete={() => handleDelete(e.plantId)} update={fetch}/>)
+            )
+        }
+        <AddPlant
+        isOpen={isAddModalOpen}
+        onRequestClose={handleCloseAddModal}
+        onAdd={handleAdd}
+      />
+        </tbody>
+      </table>
+      <button className="button-add" onClick={handleOpenAddModal}>Dodaj postrojenje</button>
+
+    </div>
+);
+
+};
+
+
+export default PlantList;
+
+
+

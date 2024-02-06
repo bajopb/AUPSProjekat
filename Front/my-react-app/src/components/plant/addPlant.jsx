@@ -1,0 +1,51 @@
+import React, { useState } from "react";
+import Modal from "react-modal";
+
+const AddPlant = ({ isOpen, onRequestClose, onAdd }) => {
+  const [plantData, setPlantData] = useState({
+  });
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setPlantData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onAdd(plantData);
+    setPlantData({
+      plantName: ""
+      
+    });
+    onRequestClose();
+  };
+
+  return (
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      contentLabel="Dodaj postrojenje"
+      ariaHideApp={false}
+    >
+      <h2>Dodaj postrojenje</h2>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Naziv:
+          <input
+            type="text"
+            id="plantName"
+            value={plantData.plantName}
+            onChange={handleChange}
+          />
+        </label>
+        
+                <button type="submit">Dodaj</button>
+      </form>
+    </Modal>
+  );
+};
+
+export default AddPlant;

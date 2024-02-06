@@ -1,0 +1,29 @@
+.navbar {
+    background-color: #3498db;
+    padding: 10px 20px;
+  }
+  
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  li {
+    margin: 0;
+  }
+  
+  a {
+    text-decoration: none;
+    color: #3498db; /* Svetlo plava boja */
+    font-weight: bold;
+    font-size: 14px;
+    transition: color 0.3s ease;
+  }
+  
+  a:hover {
+    color: #1f618d; /* Tamno plava boja na hoveru */
+  }
+  

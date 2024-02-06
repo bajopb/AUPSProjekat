@@ -1,0 +1,171 @@
+/* styles.css */
+
+/* Postavljanje osnovnog stila za tabelu */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  /* Stilizacija zaglavlja tabele */
+  thead {
+    background-color: #f2f2f2;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  /* Stilizacija redova tabele */
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Hover efekat na redovima tabele */
+  tbody tr:hover {
+    background-color: #d9d9d9;
+  }
+  
+  /* Dodatni stil za naslov stranice */
+  h2 {
+    color: #333;
+    margin-bottom: 10px;
+  }
+/* Stilizacija modalnog prozora */
+
+.update-employee-modal {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    margin-bottom: 10px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    
+  }
+  
+  .button-add{
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #008CBA;
+    width: 100vh;
+    margin-top: 20px;
+    color: #fff;
+  }
+
+  .btn-update{
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #008CBA;
+    color: #fff;
+  }
+  .btn-delete{
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #f00;
+    color: #fff;
+  }
+  button[type="button"] {
+    background-color: #008CBA;
+    color: white;
+  }
+  
+  button[type="button"]:hover {
+    background-color: #005a80;
+  }
+  
+  .close-button {
+    background-color: #ccc;
+    color: #333;
+  }
+  
+  .close-button:hover {
+    background-color: #999;
+  }
+    
+  /* Dodatak za stilizaciju padajućeg menija */
+select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #fff; /* Boja pozadine */
+}
+
+/* Dodatak za hover efekat na padajućem meniju */
+select:hover {
+  border-color: #0077cc; /* Promenite boju po potrebi */
+}
+
+/* Dodatak za stilizaciju padajućeg menija dok je aktivan */
+select:focus {
+  outline: none;
+  border-color: #005a80; /* Promenite boju po potrebi */
+  box-shadow: 0 0 5px rgba(0, 92, 128, 0.5); /* Efekat senke */
+}
+
+/* Dodatak za stilizaciju strelice u padajućem meniju */
+select::-ms-expand {
+  display: none;
+}
+
+/* Dodatak za strelicu u padajućem meniju koristeći Unicode */
+select:before {
+  content: '\25BC'; /* Unicode karakter za strelicu prema dole */
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  background-color: #0077cc; /* Boja strelice */
+  color: #fff; /* Boja teksta strelice */
+  pointer-events: none;
+}
+
+/* Dodatni stilovi za centriranje btn-add */
+
