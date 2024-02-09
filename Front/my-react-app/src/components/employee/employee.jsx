@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import UpdateEmployee from "./updateEmployee";
 import api from "../../api/api";
-
+import swal from "sweetalert";
 
 const Employee=({data, onDelete, update})=>{
 
@@ -17,9 +17,20 @@ const Employee=({data, onDelete, update})=>{
 
 
 
-    const handleDelete = (e) => {
+    const handleDelete = async (e) => {
         e.preventDefault();
-        onDelete(); 
+        const willDelete = await swal({
+          title: "Da li ste sigurni?",
+          text: "Da li ste sigurni da zelite da obrisete obrisete ovaj entitet?",
+          icon: "warning",
+          dangerMode: true,
+          buttons: ["Ne", true]
+        });
+        
+        if (willDelete) {
+          swal("Obrisano!", "", "success");
+          onDelete(); 
+        } 
       };
       
 

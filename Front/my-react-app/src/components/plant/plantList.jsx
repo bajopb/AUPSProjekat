@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import api from "../../api/api";
 import "../style/style.css"
 import Plant from "./plant";
 import AddPlant from "./addPlant";
+import swal from "sweetalert";
+import AuthContext from "../../context/authContext";
 const PlantList=()=>{
-
+const context=useContext(AuthContext);
 const [plants, setPlants]=useState();
 const [isAddModalOpen, setAddModalOpen] = useState(false);
 
@@ -18,8 +20,15 @@ const [isAddModalOpen, setAddModalOpen] = useState(false);
   };
 
   const handleAdd = async (newData) => {
+    if(context.type()!="Admin")
+    {
+      alert("Dodavanje je dozvoljeno samo administratoru.");
+      return;
+    }
     try {
       const res = await api.post("plant", newData);
+      swal("Uspesno ste dodali novi entitet!", "", "success")
+
         fetch();      
     } catch (error) {
       alert(error);
@@ -42,6 +51,11 @@ useEffect(() => {
     }
   };
   const handleDelete = async(id) => {
+    if(context.type()!="Admin")
+    {
+      alert("Brisanje je dozvoljeno samo administratoru.");
+      return;
+    }
     try {
         await api.delete('plant/' + id);
             fetch();

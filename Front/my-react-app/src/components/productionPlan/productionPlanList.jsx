@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import api from "../../api/api";
 import "../style/style.css"
 import ProductionPlan from "./productionPlan";
 import AddProductionPlan from "./addProductionPlan";
+import swal from "sweetalert";
+import AuthContext from "../../context/authContext";
 const ProductionPlanList=()=>{
 
 const [productionPlans, setProductionPlans]=useState();
 const [isAddModalOpen, setAddModalOpen] = useState(false);
-
+const context=useContext(AuthContext);
   const handleOpenAddModal = () => {
     setAddModalOpen(true);
   };
@@ -18,12 +20,14 @@ const [isAddModalOpen, setAddModalOpen] = useState(false);
   };
 
   const handleAdd = async (newData) => {
-    console.log("Dodavanje postrojenaj:", newData);
-    try {
+    if(context.type()!="Admin")
+    {
+      alert("Dddavanje je dozvoljeno samo administratoru.");
+      return;
+    }    try {
       const res = await api.post("productionPlan", newData);
-      if (res.data) {
-          console.log(res.data);
-      }
+      swal("Uspesno ste dodali novi entitet!", "", "success")
+      fetch();
     } catch (error) {
       alert(error);
     }
@@ -49,6 +53,11 @@ useEffect(() => {
   
   
   const handleDelete = async(id) => {
+    if(context.type()!="Admin")
+    {
+      alert("Brisanje je dozvoljeno samo administratoru.");
+      return;
+    }
     try {
         await api.delete('productionPlan/' + id);
             fetch();

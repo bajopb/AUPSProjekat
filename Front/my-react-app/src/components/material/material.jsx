@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import api from "../../api/api";
 import UpdateMaterial from "./updateMaterial";
+import swal from "sweetalert";
 
 const Material=({data, onDelete, update})=>{
 
@@ -10,20 +11,23 @@ const Material=({data, onDelete, update})=>{
     const handleUpdate=()=>{
         setMaterial(data);
         setShowModal(true);
-
-
     };
 
-
-
-    const handleDelete = (e) => {
+    const handleDelete = async (e) => {
         e.preventDefault();
-        onDelete();
+        const willDelete = await swal({
+          title: "Da li ste sigurni?",
+          text: "Da li ste sigurni da zelite da obrisete obrisete ovaj entitet?",
+          icon: "warning",
+          dangerMode: true,
+          buttons: ["Ne", true]
+        });
+        
+        if (willDelete) {
+          swal("Obrisano!", "", "success");
+          onDelete(); 
+        }
       };
-      
-
-    
-
 
     return(
 

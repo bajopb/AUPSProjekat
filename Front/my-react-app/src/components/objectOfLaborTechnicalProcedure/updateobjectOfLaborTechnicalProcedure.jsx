@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import Modal from "react-modal";
 import api from "../../api/api";
 import { useState, useEffect } from "react";
 import "../style/style.css"
-
+import AuthContext from "../../context/authContext";
+import swal from "sweetalert";
 const UpdateObjectOfLaborTechnologicalProcedure = ({ open, setOpen, data, setData, update,  objectOfLaborId}) => {
+
+  const context=useContext(AuthContext);
   const handleClose = () => setOpen(false);
   const[technologicalProcedures, setTechnologicalProcedures]=useState();
 
@@ -32,7 +35,13 @@ const UpdateObjectOfLaborTechnologicalProcedure = ({ open, setOpen, data, setDat
   };
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
+    if(context.type()!="Admin")
+    {
+      alert("Izmena je dozvoljena samo administratoru.");
+      return;
+    }
     if (
       !data.orderOfExecution ||
       !data.objectOfLaborId ||
@@ -50,7 +59,17 @@ const UpdateObjectOfLaborTechnologicalProcedure = ({ open, setOpen, data, setDat
     formData.append("technologicalProcedureId", data.technologicalProcedureId);
     formData.append("objectOfLaborTechnologicalProcedureId", data.objectOfLaborTechnologicalProcedureId);
     
-    try {
+    const willUpdate = await swal({
+      title: "Da li ste sigurni?",
+      text: "Da li ste sigurni da zelite da izmenite obrisete ovaj entitet?",
+      icon: "warning",
+      dangerMode: true,
+      buttons: ["Ne", true]
+    });
+    
+    if (willUpdate) {
+      swal("Izmenjeno!", "", "success");
+      try {
         const res = await api.put("objectOfLaborTechnologicalProcedure", formData);
         if (res.data) {
           setData(res.data);
@@ -60,6 +79,7 @@ const UpdateObjectOfLaborTechnologicalProcedure = ({ open, setOpen, data, setDat
       }
       update();
     setOpen(false);
+    }
   };
 
 

@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import Modal from "react-modal";
 import api from "../../api/api";
 import { useState } from "react";
 import "../style/style.css"
+import AuthContext from "../../context/authContext";
+import swal from "sweetalert";
 
 const UpdateWorkplace = ({ open, setOpen, data, setData, update}) => {
   const handleClose = () => setOpen(false);
-  
+  const context=useContext(AuthContext);
   const handleChange = (e) => {
     setData({
       ...data,
@@ -16,6 +18,11 @@ const UpdateWorkplace = ({ open, setOpen, data, setData, update}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(context.type()!="Admin")
+    {
+      alert("Izmena je dozvoljena samo administratoru.");
+      return;
+    }
     console.log(data);
     if (
       !data.workplaceName )
@@ -28,18 +35,27 @@ const UpdateWorkplace = ({ open, setOpen, data, setData, update}) => {
     formData.append("workplaceName", data.workplaceName);
       formData.append("workplaceId", data.workplaceId);
     
-    try {
-        const res = await api.put("workplace", formData);
-        if (res.data) {
-            console.log(res.data);
-          setData(res.data);
+      const willUpdate = await swal({
+        title: "Da li ste sigurni?",
+        text: "Da li ste sigurni da zelite da izmenite obrisete ovaj entitet?",
+        icon: "warning",
+        dangerMode: true,
+        buttons: ["Ne", true]
+      });
+      
+      if (willUpdate) {
+        swal("Izmenjeno!", "", "success");
+        try {
+          const res = await api.put("workplace", formData);
+          if (res.data) {
+            setData(res.data);
+          }
+        } catch (error) {
+          alert(error);
         }
-      } catch (error) {
-        alert(error);
+        update();
+      setOpen(false);
       }
-      update();
-
-    setOpen(false);
   };
 
   return (

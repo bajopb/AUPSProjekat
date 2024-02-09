@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import api from "../../api/api";
 import UpdateObjectOfLaborTechnologicalProcedure from "./updateobjectOfLaborTechnicalProcedure";
+import swal from "sweetalert";
 const ObjectOfLaborTechnologicalProcedure=({data, onDelete, update, objectOfLaborId})=>{
 
     const [objectOfLaborTechnologicalProcedure, setObjectOfLaborTechnologicalProcedure] = useState({});
@@ -15,9 +16,20 @@ const ObjectOfLaborTechnologicalProcedure=({data, onDelete, update, objectOfLabo
 
 
 
-    const handleDelete = (e) => {
+    const handleDelete = async (e) => {
       e.preventDefault();
-      onDelete(); 
+      const willDelete = await swal({
+        title: "Da li ste sigurni?",
+        text: "Da li ste sigurni da zelite da obrisete obrisete ovaj entitet?",
+        icon: "warning",
+        dangerMode: true,
+        buttons: ["Ne", true]
+      });
+      
+      if (willDelete) {
+        swal("Obrisano!", "", "success");
+        onDelete(); 
+      } 
     };
       
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import api from "../../api/api";
 import UpdateWorkplace from "./udateWorkplace";
-
+import swal from "sweetalert";
 const Workplace=({data, onDelete, update})=>{
 
     const [workplace, setWorkplace] = useState({});
@@ -16,10 +16,20 @@ const Workplace=({data, onDelete, update})=>{
 
 
 
-    const handleDelete=(e)=>{
+    const handleDelete=async(e)=>{
 
       e.preventDefault();
-      onDelete();
+      const willDelete = await swal({
+        title: "Da li ste sigurni?",
+        text: "Da li ste sigurni da zelite da obrisete obrisete ovaj entitet?",
+        icon: "warning",
+        dangerMode: true,
+        buttons: ["Ne", true]
+      });
+      
+      if (willDelete) {
+        onDelete(); 
+      }
      };
       
 

@@ -24,6 +24,7 @@ const Login = () => {
 
   
   return (
+    <div className="loginCard">
     <div className="login">
       <form onSubmit={handleSubmit} className="form">
         <div>
@@ -51,6 +52,7 @@ const Login = () => {
         <button type="submit" className="submitButton">Login</button>
       </form>
       
+    </div>
     </div>
   );
 };

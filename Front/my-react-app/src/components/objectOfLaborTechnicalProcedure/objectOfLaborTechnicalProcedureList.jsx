@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import api from "../../api/api";
 import "../style/style.css"
 import ObjectOfLaborTechnologicalProcedure from "./objectOfLaborTechnicalProcedure";
 import AddObjectOfLaborTechnologicalProcedure from "./addobjectOfLaborTechnicalProcedure";
-
+import AuthContext from "../../context/authContext";
+import swal from "sweetalert";
 
 const ObjectOfLaborTechnologicalProcedureList=({objectOfLaborId})=>{
 
+
+const context=useContext(AuthContext);
 const [objectOfLaborTechnologicalProcedures, setObjectOfLaborTechnologicalProcedures]=useState();
 const [isAddModalOpen, setAddModalOpen] = useState(false);
 
@@ -19,9 +22,15 @@ const [isAddModalOpen, setAddModalOpen] = useState(false);
   };
 
   const handleAdd = async (newData) => {
+    if(context.type()!="Admin")
+    {
+      alert("Dodavanje je dozvoljeno samo administratoru.");
+      return;
+    }
     try {
       const res = await api.post("objectOfLaborTechnologicalProcedure", newData);
-      
+      swal("Uspesno ste dodali novi entitet!", "", "success")
+
         fetch();
     } catch (error) {
       alert(error);
@@ -44,6 +53,11 @@ useEffect(() => {
   };
 
   const handleDelete = async(id) => {
+    if(context.type()!="Admin")
+    {
+      alert("Brisanje je dozvoljeno samo administratoru.");
+      return;
+    }
     try {
         await api.delete('objectOfLaborTechnologicalProcedure/' + id);
             fetch();

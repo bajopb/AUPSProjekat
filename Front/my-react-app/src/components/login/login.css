@@ -1,9 +1,13 @@
+
+
 .login {
+  background-image: url('../../../public/dzem.png');
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100vh; /* Visina 100% ekrana */
   margin: 0; /* Uklanja podrazumevani margin od strane pregledača */
+  background-color: #fff;
 }
 
 .form {
@@ -15,6 +19,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
 
 .label {

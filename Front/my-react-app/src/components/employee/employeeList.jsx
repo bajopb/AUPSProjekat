@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Employee from "./employee";
 import api from "../../api/api";
 import "../style/style.css"
 import AddEmployee from "./addEmployee";
-
+import AuthContext from "../../context/authContext";
+import swal from "sweetalert";
 const EmployeeList=()=>{
+const context=useContext(AuthContext);
 
 const [employees, setEmployees]=useState();
 const [isAddEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false);
@@ -19,8 +21,14 @@ const [isAddEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false);
   };
 
   const handleAddEmployee = async (newEmployeeData) => {
+    if(context.type()!="Admin")
+    {
+      alert("Dodavanje je dozvoljeno samo administratoru.");
+      return;
+    }
     try {
       const res = await api.post("employee", newEmployeeData);
+      swal("Uspesno ste dodali novi entitet!", "", "success")
         fetchEmployees();      
     } catch (error) {
       alert(error);
@@ -44,6 +52,11 @@ useEffect(() => {
   };
 
   const handleDelete = async(id) => {
+    if(context.type()!="Admin")
+    {
+      alert("Brisanje je dozvoljeno samo administratoru.");
+      return;
+    }
     try {
         await api.delete('employee/' + id);
             fetchEmployees();

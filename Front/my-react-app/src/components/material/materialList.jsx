@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import api from "../../api/api";
 import "../style/style.css"
 import Material from "./material";
 import AddMaterial from "./addMaterial";
+import AuthContext from "../../context/authContext";
+import swal from "sweetalert";
 const MaterialList=()=>{
-
+const context=useContext(AuthContext);
 const [materials, setMaterials]=useState();
 const [isAddModalOpen, setAddModalOpen] = useState(false);
 
@@ -21,6 +23,8 @@ const [isAddModalOpen, setAddModalOpen] = useState(false);
     try {
       const res = await api.post("material", newData);
       if (res.data) {
+        swal("Uspesno ste dodali novi entitet!", "", "success")
+
           fetch();
       }
     } catch (error) {
@@ -62,7 +66,7 @@ useEffect(() => {
 
 return(
     <div>
-      <h2>Postrojenja</h2>
+      <h2>Materijali</h2>
       <table>
         <thead>
           <tr>

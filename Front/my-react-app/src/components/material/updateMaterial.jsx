@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import api from "../../api/api";
 import { useState } from "react";
 import "../style/style.css"
+import swal from "sweetalert";
 
 const UpdateMaterial = ({ open, setOpen, data, setData, update}) => {
   const handleClose = () => setOpen(false);
@@ -23,9 +24,17 @@ const UpdateMaterial = ({ open, setOpen, data, setData, update}) => {
       return;
     }
 
+    const willUpdate = await swal({
+      title: "Da li ste sigurni?",
+      text: "Da li ste sigurni da zelite da izmenite obrisete ovaj entitet?",
+      icon: "warning",
+      dangerMode: true,
+      buttons: ["Ne", true]
+    });
     
-    
-    try {
+    if (willUpdate) {
+      swal("Izmenjeno!", "", "success");
+      try {
         const res = await api.put("material", data);
         if (res.data) {
           setData(res.data);
@@ -35,6 +44,9 @@ const UpdateMaterial = ({ open, setOpen, data, setData, update}) => {
       }
       update();
     setOpen(false);
+    }
+    
+    
   };
 
   return (

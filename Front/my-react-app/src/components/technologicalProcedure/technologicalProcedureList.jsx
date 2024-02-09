@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import api from "../../api/api";
 import "../style/style.css"
 import TechnologicalProcedure from "./technologicalProcedure";
 import AddTechnologicalProcedure from "./addTechnologicalProcedure";
+import swal from "sweetalert";
+import AuthContext from "../../context/authContext";
 const TechnologicalProcedureList=()=>{
 
 const [technologicalProcedures, setTechnologicalProcedures]=useState();
 const [isAddModalOpen, setAddModalOpen] = useState(false);
-
+const context=useContext(AuthContext);
   const handleOpenAddModal = () => {
     setAddModalOpen(true);
   };
@@ -18,9 +20,14 @@ const [isAddModalOpen, setAddModalOpen] = useState(false);
   };
 
   const handleAdd = async (newData) => {
-    console.log("Dodavanje tehnoloski:", newData);
-    try {
+    if(context.type()!="Admin")
+    {
+      alert("Dodavanje je dozvoljeno samo administratoru.");
+      return;
+    }    try {
       const res = await api.post("technologicalProcedure", newData);
+      swal("Uspesno ste dodali novi entitet!", "", "success")
+
         fetch();      
     } catch (error) {
       alert(error);
@@ -37,7 +44,6 @@ useEffect(() => {
     try {
       const res = await api.get("technologicalProcedure");
       if (res.data) {
-          console.log(res.data);
         setTechnologicalProcedures(res.data);
       }
     } catch (error) {
@@ -46,6 +52,11 @@ useEffect(() => {
   };
   
   const handleDelete = async(id) => {
+    if(context.type()!="Admin")
+    {
+      alert("Brisanje je dozvoljeno samo administratoru.");
+      return;
+    }
     try {
         await api.delete('technologicalProcedure/' + id);
             fetch();

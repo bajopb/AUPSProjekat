@@ -13,7 +13,12 @@ const Navbar = () => {
   }
 
   return (
+    <>
+    
     <nav className={classes.navbar}>
+    { context.token && (<div className='logo'>
+      <h1>JamMaster</h1>
+    </div>)}
       <ul>
         {context.token && (
           <li>
@@ -112,6 +117,7 @@ const Navbar = () => {
         </li>
       </ul>
     </nav>
+    </>
   );
 };
 

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import Modal from "react-modal";
 import api from "../../api/api";
 import { useState, useEffect } from "react";
 import "../style/style.css"
+import AuthContext from "../../context/authContext";
+import swal from "sweetalert";
 
 const UpdateObjectOfLaborMaterial = ({ open, setOpen, data, setData, update, objectOfLaborId}) => {
+  const context=useContext(AuthContext);
   const handleClose = () => setOpen(false);
   const[materials, setMaterials]=useState();
   useEffect(() => {
@@ -36,6 +39,11 @@ const UpdateObjectOfLaborMaterial = ({ open, setOpen, data, setData, update, obj
   };
 
   const handleSubmit = async (e) => {
+    if(context.type()!="Admin")
+    {
+      alert("Izmena je dozvoljena samo administratoru.");
+      return;
+    }
     e.preventDefault();
     if (
       !data.quantity ||
@@ -54,7 +62,17 @@ const UpdateObjectOfLaborMaterial = ({ open, setOpen, data, setData, update, obj
     formData.append("objectOfLaborId", objectOfLaborId);
     formData.append("materialId", data.materialId);
     
-    try {
+    const willUpdate = await swal({
+      title: "Da li ste sigurni?",
+      text: "Da li ste sigurni da zelite da izmenite obrisete ovaj entitet?",
+      icon: "warning",
+      dangerMode: true,
+      buttons: ["Ne", true]
+    });
+    
+    if (willUpdate) {
+      swal("Izmenjeno!", "", "success");
+      try {
         const res = await api.put("objectOfLaborMaterial", formData);
         if (res.data) {
           setData(res.data);
@@ -64,6 +82,7 @@ const UpdateObjectOfLaborMaterial = ({ open, setOpen, data, setData, update, obj
       }
       update();
     setOpen(false);
+    }
   };
 
 

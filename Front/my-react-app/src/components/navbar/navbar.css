@@ -26,4 +26,18 @@
   a:hover {
     color: #1f618d; /* Tamno plava boja na hoveru */
   }
-  
+  .logo {
+    text-align: center;
+    padding: 20px;
+    background-color: #3498db; /* Plava boja pozadine loga - prilagodite prema vašem dizajnu */
+    margin-bottom: 20px; /* Razmak između loga i navigacije */
+}
+
+.logo h1 {
+    font-family: 'Your Font Here', sans-serif; /* Zamijenite sa stvarnim fontom */
+    font-size: 42px; /* Povećajte veličinu fonta za veći efekat */
+    color: #ffffff; /* Bela boja teksta na plavoj pozadini */
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Dodaje lagani sjaj tekstu */
+    letter-spacing: 2px; /* Dodaje razmak između slova */
+}

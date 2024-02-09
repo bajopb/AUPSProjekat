@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import api from "../../api/api";
 import "../style/style.css"
 import Workplace from "./workplace";
 import AddWorkplace from "./addWorkplace";
+import AuthContext from "../../context/authContext";
+import swal from "sweetalert";
+
+
 
 const WorkplaceList=()=>{
 
 const [workplaces, setWorkplaces]=useState();
 const [isAddModalOpen, setAddModalOpen] = useState(false);
-
+const context=useContext(AuthContext);
   const handleOpenAddModal = () => {
     setAddModalOpen(true);
   };
@@ -19,9 +23,14 @@ const [isAddModalOpen, setAddModalOpen] = useState(false);
   };
 
   const handleAdd = async (newData) => {
-    console.log("Dodavanje organizacione jedinice:", newData);
-    try {
-      const res = await api.post("workplace", newData);
+    if(context.type()!="Admin")
+    {
+      alert("Dodavanje je dozvoljeno samo administratoru.");
+      return;
+    }    try {
+      const res = await api.post("workplace", newData);  
+      swal("Uspesno ste dodali novi entitet!", "", "success")
+
       fetch();
     } catch (error) {
       alert(error);
@@ -37,7 +46,6 @@ useEffect(() => {
     try {
       const res = await api.get("workplace");
       if (res.data) {
-          console.log(res.data);
         setWorkplaces(res.data);
       }
     } catch (error) {
@@ -46,10 +54,17 @@ useEffect(() => {
   };
 
   const handleDelete = async(id) => {
+    if(context.type()!="Admin")
+    {
+      alert("Brisanje je dozvoljeno samo administratoru.");
+      return;
+    }
     try {
         await api.delete('workplace/' + id);
+
             fetch();
-        
+                swal("Obrisano!", "", "success");
+
       } catch (error) {
         alert(error);
       }

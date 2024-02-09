@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import Modal from "react-modal";
 import api from "../../api/api";
 import { useState, useEffect } from "react";
 import "../style/style.css"
-
+import AuthContext from "../../context/authContext";
+import swal from "sweetalert";
 const UpdateTechnologicalProcedure = ({ open, setOpen, data, setData, update}) => {
   const handleClose = () => setOpen(false);
-  
+  const context=useContext(AuthContext);
 
   const [organizationalUnits, setOrganizationalUnits]=useState();
   const [plants, setPlants]=useState();
@@ -71,6 +72,11 @@ const UpdateTechnologicalProcedure = ({ open, setOpen, data, setData, update}) =
  
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(context.type()!="Admin")
+    {
+      alert("Izmena je dozvoljena samo administratoru.");
+      return;
+    }
     console.log(data);
     if (
       !data.technologicalProcedureName || !data.duration || !data.organizationalUnitId ||
@@ -84,10 +90,19 @@ const UpdateTechnologicalProcedure = ({ open, setOpen, data, setData, update}) =
 
     
     
-    try {
+    const willUpdate = await swal({
+      title: "Da li ste sigurni?",
+      text: "Da li ste sigurni da zelite da izmenite obrisete ovaj entitet?",
+      icon: "warning",
+      dangerMode: true,
+      buttons: ["Ne", true]
+    });
+    
+    if (willUpdate) {
+      swal("Izmenjeno!", "", "success");
+      try {
         const res = await api.put("technologicalProcedure", data);
         if (res.data) {
-            console.log(res.data);
           setData(res.data);
         }
       } catch (error) {
@@ -95,6 +110,7 @@ const UpdateTechnologicalProcedure = ({ open, setOpen, data, setData, update}) =
       }
       update();
     setOpen(false);
+    }
   };
 
 

@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import api from "../../api/api";
 import "../style/style.css"
 import ObjectOfLabor from "./objectOfLabor";
 import AddObjectOfLabor from "./addObjectOfLabor";
+import AuthContext from "../../context/authContext";
+import swal from "sweetalert";
 const ObjectOfLaborList=()=>{
-
+const context=useContext(AuthContext);
 const [objectOfLabors, setObjectOfLabors]=useState();
 const [isAddModalOpen, setAddModalOpen] = useState(false);
 
@@ -18,9 +20,16 @@ const [isAddModalOpen, setAddModalOpen] = useState(false);
   };
 
   const handleAdd = async (newData) => {
+    if(context.type()!="Admin")
+    {
+      alert("Dodavanje je dozvoljeno samo administratoru.");
+      return;
+    }
     try {
       const res = await api.post("objectOfLabor", newData);
       if (res.data) {
+        swal("Uspesno ste dodali novi entitet!", "", "success")
+
           fetch();
       }
     } catch (error) {
@@ -45,7 +54,11 @@ useEffect(() => {
   };
 
   const handleDelete = async(id) => {
-
+    if(context.type()!="Admin")
+    {
+      alert("Brisanje je dozvoljeno samo administratoru.");
+      return;
+    }
     try {
         await api.delete('objectOfLabor/' + id);
             fetch();

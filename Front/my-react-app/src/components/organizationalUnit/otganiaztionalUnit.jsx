@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import api from "../../api/api";
 import UpdateOrganizationalUnit from "./updateOrganizationalUnit";
-
+import swal from "sweetalert";
 const OrganizationalUnit=({data, onDelete,update})=>{
 
     const [organizationalUnit, setOrganizationalUnit] = useState({});
@@ -16,9 +16,20 @@ const OrganizationalUnit=({data, onDelete,update})=>{
 
 
 
-    const handleDelete = (e) => {
+    const handleDelete = async(e) => {
       e.preventDefault();
-      onDelete(); 
+      const willDelete = await swal({
+        title: "Da li ste sigurni?",
+        text: "Da li ste sigurni da zelite da obrisete obrisete ovaj entitet?",
+        icon: "warning",
+        dangerMode: true,
+        buttons: ["Ne", true]
+      });
+      
+      if (willDelete) {
+        swal("Obrisano!", "", "success");
+        onDelete(); 
+      }
     };
       
 

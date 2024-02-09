@@ -3,6 +3,7 @@ import api from "../api/api";
 import {jwtDecode} from "jwt-decode";
 import {useNavigate} from 'react-router-dom'
 import axios  from "axios";
+import swal from "sweetalert";
 
 const AuthContext = React.createContext();
 
@@ -16,15 +17,15 @@ export const AuthContextProvider = (props) => {
 
     const loginHandler = async(loginData) => {
         try {
-            const res = await api.post('auth/login', loginData)
+            const res = await api.post('auth/login', loginData);
+            
             if(!res)
                 return;
-            console.log(res.data.token);
             setToken(res.data.token);
             localStorage.setItem('token', res.data.token);
             navigate('/employees');
         } catch (e){
-            alert(e);
+            swal(e.response.data.detail);
         }
     };
 
@@ -55,10 +56,7 @@ export const AuthContextProvider = (props) => {
         } catch(e) {
             console.log(e);
         }
-    }
-
-    
-    
+    };
 
     return (
         <AuthContext.Provider
