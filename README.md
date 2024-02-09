@@ -1,2 +1,2 @@
 # AUPSProjekat
-Projekat iz predmeta automatizacija upravljanja u proizovdnim sistemima
+Projekat iz predmeta automatizacija upravljanja proizovdnim sistemima
