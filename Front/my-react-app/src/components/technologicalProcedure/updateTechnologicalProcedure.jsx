@@ -125,7 +125,16 @@ const UpdateTechnologicalProcedure = ({ open, setOpen, data, setData, update}) =
       [e.target.id]: value,
     });
   }
-
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
 
   return (
     <Modal
@@ -133,6 +142,7 @@ const UpdateTechnologicalProcedure = ({ open, setOpen, data, setData, update}) =
       onRequestClose={handleClose}
       contentLabel="Izmeni informacije o tehnoloskom postupku"
       ariaHideApp={false}
+      style={customStyles}
     >
       <div className="update-employee-modal">
         <h2>Izmeni</h2>
@@ -147,6 +157,7 @@ const UpdateTechnologicalProcedure = ({ open, setOpen, data, setData, update}) =
               id="technologicalProcedureName"
               value={data.technologicalProcedureName}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -164,6 +175,7 @@ const UpdateTechnologicalProcedure = ({ open, setOpen, data, setData, update}) =
             id="organizationalUnitId"
             value={data.organizationalUnitId}
             onChange={handleChange}
+required
           >
             <option value="" disabled>
               Izaberite organizacionu jedinicu
@@ -181,6 +193,7 @@ const UpdateTechnologicalProcedure = ({ open, setOpen, data, setData, update}) =
             id="plantId"
             value={data.plantId}
             onChange={handleChange}
+required
           >
             <option value="" disabled>
               Izaberite postrojenje
@@ -198,6 +211,7 @@ const UpdateTechnologicalProcedure = ({ open, setOpen, data, setData, update}) =
             id="technologicalSystemId"
             value={data.technologicalSystemId}
             onChange={handleChange}
+required
           >
             <option value="" disabled>
               Izaberite tehnoloski sistem

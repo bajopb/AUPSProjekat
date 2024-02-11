@@ -22,6 +22,16 @@ const AddOrganizationalUnit = ({ isOpen, onRequestClose, onAdd }) => {
     });
     onRequestClose();
   };
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
 
   return (
     <Modal
@@ -29,6 +39,7 @@ const AddOrganizationalUnit = ({ isOpen, onRequestClose, onAdd }) => {
       onRequestClose={onRequestClose}
       contentLabel="Dodaj organizacionu jedinicu"
       ariaHideApp={false}
+      style={customStyles}
     >
       <h2>Dodaj organizacionu jedinicu</h2>
       <form onSubmit={handleSubmit}>
@@ -39,10 +50,14 @@ const AddOrganizationalUnit = ({ isOpen, onRequestClose, onAdd }) => {
             id="organizationalUnitName"
             value={organizationalUnitData.organizationalUnitName}
             onChange={handleChange}
+required
           />
         </label>
         
                 <button type="submit">Dodaj</button>
+                <button className="close-button" onClick={onRequestClose}>
+              Izadji
+            </button>
       </form>
     </Modal>
   );

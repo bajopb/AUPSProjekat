@@ -81,12 +81,25 @@ const UpdateObjectOfLabor = ({ open, setOpen, data, setData, update}) => {
     }
   };
 
+
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
+
   return (
     <Modal
       isOpen={open}
       onRequestClose={handleClose}
       contentLabel="Izmeni informacije o predmetu rada"
       ariaHideApp={false}
+      style={customStyles}
     >
       <div className="update-employee-modal">
         <h2>Izmeni</h2>
@@ -98,6 +111,7 @@ const UpdateObjectOfLabor = ({ open, setOpen, data, setData, update}) => {
               id="objectOfLaborName"
               value={data.objectOfLaborName}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -107,6 +121,7 @@ const UpdateObjectOfLabor = ({ open, setOpen, data, setData, update}) => {
               id="description"
               value={data.description}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -116,6 +131,7 @@ const UpdateObjectOfLabor = ({ open, setOpen, data, setData, update}) => {
               id="price"
               value={data.price}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -125,6 +141,7 @@ const UpdateObjectOfLabor = ({ open, setOpen, data, setData, update}) => {
               id="stockQuantity"
               value={data.stockQuantity}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -133,6 +150,7 @@ const UpdateObjectOfLabor = ({ open, setOpen, data, setData, update}) => {
             id="warehouseId"
             value={data.warehouseId}
             onChange={handleChange}
+required
           >
             <option value="" >
               Izaberite skladiste

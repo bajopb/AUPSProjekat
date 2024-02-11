@@ -48,7 +48,16 @@ const AddProductionOrder = ({ isOpen, onRequestClose, onAdd }) => {
     fetchEmployees();
   }, []);
 
-
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
 
   return (
     <Modal
@@ -56,6 +65,7 @@ const AddProductionOrder = ({ isOpen, onRequestClose, onAdd }) => {
       onRequestClose={onRequestClose}
       contentLabel="Dodaj nalog za proizvodnju"
       ariaHideApp={false}
+      style={customStyles}
     >
       <h2>Dodaj nalog za proizvodnju</h2>
       <form onSubmit={handleSubmit}>
@@ -66,6 +76,7 @@ const AddProductionOrder = ({ isOpen, onRequestClose, onAdd }) => {
             id="startDate"
             value={productionOrderData.startDate}
             onChange={handleChange}
+required
           />
         </label>
         <label>
@@ -75,6 +86,7 @@ const AddProductionOrder = ({ isOpen, onRequestClose, onAdd }) => {
             id="endDate"
             value={productionOrderData.endDate}
             onChange={handleChange}
+required
           />
         </label>
         <label>
@@ -84,6 +96,7 @@ const AddProductionOrder = ({ isOpen, onRequestClose, onAdd }) => {
             id="quantity"
             value={productionOrderData.quantity}
             onChange={handleChange}
+required
           />
         </label>
         <label>
@@ -93,6 +106,7 @@ const AddProductionOrder = ({ isOpen, onRequestClose, onAdd }) => {
             id="note"
             value={productionOrderData.note}
             onChange={handleChange}
+required
           />
         </label>
         <label>
@@ -101,9 +115,10 @@ const AddProductionOrder = ({ isOpen, onRequestClose, onAdd }) => {
             id="objectOfLaborId"
             value={productionOrderData.objectOfLaborId}
             onChange={handleChange}
+required
           >
             <option value="">
-              Izaberite organizacionu jedinicu
+              Izaberite predmet rada
             </option>
             {objectsOfLabor ? objectsOfLabor.map((workplace) => (
               <option key={workplace.objectOfLaborId} value={workplace.objectOfLaborId}>
@@ -114,6 +129,9 @@ const AddProductionOrder = ({ isOpen, onRequestClose, onAdd }) => {
         </label>
         
                 <button type="submit">Dodaj</button>
+                <button className="close-button" onClick={onRequestClose}>
+              Izadji
+            </button>
       </form>
     </Modal>
   );

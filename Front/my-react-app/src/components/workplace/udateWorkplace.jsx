@@ -58,12 +58,24 @@ const UpdateWorkplace = ({ open, setOpen, data, setData, update}) => {
       }
   };
 
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
+
   return (
     <Modal
       isOpen={open}
       onRequestClose={handleClose}
       contentLabel="Izmeni informacije o radnom mestu"
       ariaHideApp={false}
+      style={customStyles}
     >
       <div className="update-employee-modal">
         <h2>Izmeni</h2>
@@ -75,6 +87,7 @@ const UpdateWorkplace = ({ open, setOpen, data, setData, update}) => {
               id="workplaceName"
               value={data.workplaceName}
               onChange={handleChange}
+required
             />
           </label>
           

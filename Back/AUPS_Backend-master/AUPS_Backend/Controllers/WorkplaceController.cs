@@ -116,8 +116,7 @@ namespace AUPS_Backend.Controllers
                 return NotFound();
             }
 
-            var role = await _roleManager.FindByNameAsync(workplace?.WorkplaceName);
-            await _roleManager.DeleteAsync(role);
+            
             await _workplaceRepository.DeleteWorkplace(id);
 
             return NoContent();

@@ -68,6 +68,16 @@ const AddObjectOfLaborMaterial = ({ isOpen, onRequestClose, onAdd, objectOfLabor
     fetchEmployees();
   }, []);
 
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
 
 
   return (
@@ -76,6 +86,7 @@ const AddObjectOfLaborMaterial = ({ isOpen, onRequestClose, onAdd, objectOfLabor
       onRequestClose={onRequestClose}
       contentLabel="Dodaj materijal za predmet rada"
       ariaHideApp={false}
+      style={customStyles}
     >
       <h2>Dodaj predmet rada</h2>
       <form onSubmit={handleSubmit}>
@@ -97,6 +108,7 @@ const AddObjectOfLaborMaterial = ({ isOpen, onRequestClose, onAdd, objectOfLabor
               id="quantity"
               value={objectOfLaborMaterialData.quantity}
               onChange={handleChangeQuantity}
+              required
             />
           </label>
           
@@ -106,6 +118,7 @@ const AddObjectOfLaborMaterial = ({ isOpen, onRequestClose, onAdd, objectOfLabor
             id="materialId"
             value={objectOfLaborMaterialData.materialId}
             onChange={handleChange}
+required
           >
             <option value="" >
               Izaberite materijal
@@ -118,6 +131,9 @@ const AddObjectOfLaborMaterial = ({ isOpen, onRequestClose, onAdd, objectOfLabor
           </select>
         </label>
                 <button type="submit">Dodaj</button>
+                <button className="close-button" onClick={onRequestClose}>
+              Izadji
+            </button>
       </form>
     </Modal>
   );

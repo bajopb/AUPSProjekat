@@ -45,7 +45,16 @@ const AddObjectOfLabor = ({ isOpen, onRequestClose, onAdd }) => {
 
     fetchEmployees();
   }, []);
-
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
 
   return (
     <Modal
@@ -53,6 +62,7 @@ const AddObjectOfLabor = ({ isOpen, onRequestClose, onAdd }) => {
       onRequestClose={onRequestClose}
       contentLabel="Dodaj predmet rada"
       ariaHideApp={false}
+      style={customStyles}
     >
       <h2>Dodaj predmet rada</h2>
       <form onSubmit={handleSubmit}>
@@ -63,6 +73,7 @@ const AddObjectOfLabor = ({ isOpen, onRequestClose, onAdd }) => {
               id="objectOfLaborName"
               value={objectOfLaborData.objectOfLaborName}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -72,6 +83,7 @@ const AddObjectOfLabor = ({ isOpen, onRequestClose, onAdd }) => {
               id="description"
               value={objectOfLaborData.description}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -81,6 +93,7 @@ const AddObjectOfLabor = ({ isOpen, onRequestClose, onAdd }) => {
               id="price"
               value={objectOfLaborData.price}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -90,6 +103,7 @@ const AddObjectOfLabor = ({ isOpen, onRequestClose, onAdd }) => {
               id="stockQuantity"
               value={objectOfLaborData.stockQuantity}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -98,6 +112,7 @@ const AddObjectOfLabor = ({ isOpen, onRequestClose, onAdd }) => {
             id="warehouseId"
             value={objectOfLaborData.warehouseId}
             onChange={handleChange}
+required
           >
             <option value="" >
               Izaberite skladiste
@@ -111,6 +126,9 @@ const AddObjectOfLabor = ({ isOpen, onRequestClose, onAdd }) => {
         </label>
         
                 <button type="submit">Dodaj</button>
+                <button className="close-button" onClick={onRequestClose}>
+              Izadji
+            </button>
       </form>
     </Modal>
   );

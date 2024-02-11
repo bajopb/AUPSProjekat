@@ -17,13 +17,19 @@ const [isAddEmployeeModalOpen, setAddEmployeeModalOpen] = useState(false);
 
   const handleCloseAddEmployeeModal = () => {
     setAddEmployeeModalOpen(false);
-    fetchEmployees();
   };
 
   const handleAddEmployee = async (newEmployeeData) => {
     if(context.type()!="Admin")
     {
-      alert("Dodavanje je dozvoljeno samo administratoru.");
+      swal({
+        title: "Nemate pravo na dodavanje:(",
+        text: "Dodavanje je dozvoljeno samo administratorima?",
+        icon: "warning",
+        dangerMode: true,
+        buttons: ["Ok", [true]]
+      });
+      
       return;
     }
     try {
@@ -54,7 +60,14 @@ useEffect(() => {
   const handleDelete = async(id) => {
     if(context.type()!="Admin")
     {
-      alert("Brisanje je dozvoljeno samo administratoru.");
+      swal({
+        title: "Nemate pravo na brisanje:(",
+        text: "Brisanje je dozvoljeno samo administratorima?",
+        icon: "warning",
+        dangerMode: true,
+        buttons: ["Ok", [true]]
+      });
+      
       return;
     }
     try {

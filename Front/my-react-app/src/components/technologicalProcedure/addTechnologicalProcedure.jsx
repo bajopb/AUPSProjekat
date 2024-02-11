@@ -102,6 +102,16 @@ const AddTechnologicalProcedure = ({ isOpen, onRequestClose, onAdd}) => {
     });
   }
 
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
 
 
   return (
@@ -110,8 +120,9 @@ const AddTechnologicalProcedure = ({ isOpen, onRequestClose, onAdd}) => {
       onRequestClose={onRequestClose}
       contentLabel="Dodaj tehnoloski postupak"
       ariaHideApp={false}
+      style={customStyles}
     >
-      <h2>Dodaj tehnoloski sistem</h2>
+      <h2>Dodaj tehnoloski postupak</h2>
       <form onSubmit={handleSubmit}>
             
           
@@ -123,6 +134,7 @@ const AddTechnologicalProcedure = ({ isOpen, onRequestClose, onAdd}) => {
               id="technologicalProcedureName"
               value={technologicalProcedureData.technologicalProcedureName}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -140,6 +152,7 @@ const AddTechnologicalProcedure = ({ isOpen, onRequestClose, onAdd}) => {
             id="organizationalUnitId"
             value={technologicalProcedureData.organizationalUnitId}
             onChange={handleChange}
+required
           >
             <option value="" >
               Izaberite organizacionu jedinicu
@@ -157,6 +170,7 @@ const AddTechnologicalProcedure = ({ isOpen, onRequestClose, onAdd}) => {
             id="plantId"
             value={technologicalProcedureData.plantId}
             onChange={handleChange}
+required
           >
             <option value="" >
               Izaberite postrojenje
@@ -174,6 +188,7 @@ const AddTechnologicalProcedure = ({ isOpen, onRequestClose, onAdd}) => {
             id="technologicalSystemId"
             value={technologicalProcedureData.technologicalSystemId}
             onChange={handleChange}
+required
           >
             <option value="" >
               Izaberite tehnoloski sistem
@@ -187,6 +202,9 @@ const AddTechnologicalProcedure = ({ isOpen, onRequestClose, onAdd}) => {
         </label>
           
                 <button type="submit">Dodaj</button>
+                <button className="close-button" onClick={onRequestClose}>
+              Izadji
+            </button>
       </form>
     </Modal>
   );

@@ -23,12 +23,26 @@ const AddPlant = ({ isOpen, onRequestClose, onAdd }) => {
     onRequestClose();
   };
 
+
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
+
+
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Dodaj postrojenje"
       ariaHideApp={false}
+      style={customStyles}
     >
       <h2>Dodaj postrojenje</h2>
       <form onSubmit={handleSubmit}>
@@ -39,10 +53,14 @@ const AddPlant = ({ isOpen, onRequestClose, onAdd }) => {
             id="plantName"
             value={plantData.plantName}
             onChange={handleChange}
+required
           />
         </label>
         
                 <button type="submit">Dodaj</button>
+                <button className="close-button" onClick={onRequestClose}>
+              Izadji
+            </button>
       </form>
     </Modal>
   );

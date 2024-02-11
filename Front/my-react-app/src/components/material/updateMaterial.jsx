@@ -7,7 +7,16 @@ import swal from "sweetalert";
 
 const UpdateMaterial = ({ open, setOpen, data, setData, update}) => {
   const handleClose = () => setOpen(false);
-  
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
   const handleChange = (e) => {
     setData({
       ...data,
@@ -17,12 +26,7 @@ const UpdateMaterial = ({ open, setOpen, data, setData, update}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (
-      !data.materialName || !data.stockQuantity)
-      {
-      alert("Sva polja su obavezna");
-      return;
-    }
+    
 
     const willUpdate = await swal({
       title: "Da li ste sigurni?",
@@ -55,6 +59,7 @@ const UpdateMaterial = ({ open, setOpen, data, setData, update}) => {
       onRequestClose={handleClose}
       contentLabel="Izmeni informacije o materijalu"
       ariaHideApp={false}
+      style={customStyles}
     >
       <div className="update-employee-modal">
         <h2>Izmeni</h2>
@@ -66,6 +71,7 @@ const UpdateMaterial = ({ open, setOpen, data, setData, update}) => {
               id="materialName"
               value={data.materialName}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -75,6 +81,7 @@ const UpdateMaterial = ({ open, setOpen, data, setData, update}) => {
               id="stockQuantity"
               value={data.stockQuantity}
               onChange={handleChange}
+required
             />
           </label>
           <div className="modal-buttons">

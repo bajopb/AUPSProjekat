@@ -24,12 +24,25 @@ const AddMaterial = ({ isOpen, onRequestClose, onAdd }) => {
     onRequestClose();
   };
 
+
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
+
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Dodaj materijal"
       ariaHideApp={false}
+      style={customStyles}
     >
       <h2>Dodaj materijal</h2>
       <form onSubmit={handleSubmit}>
@@ -40,6 +53,7 @@ const AddMaterial = ({ isOpen, onRequestClose, onAdd }) => {
             id="materialName"
             value={materialData.materialName}
             onChange={handleChange}
+required
           />
         </label>
         <label>
@@ -49,9 +63,13 @@ const AddMaterial = ({ isOpen, onRequestClose, onAdd }) => {
             id="stockQuantity"
             value={materialData.stockQuantity}
             onChange={handleChange}
+required
           />
         </label>
                 <button type="submit">Dodaj</button>
+                <button className="close-button" onClick={onRequestClose}>
+              Izadji
+            </button>
       </form>
     </Modal>
   );

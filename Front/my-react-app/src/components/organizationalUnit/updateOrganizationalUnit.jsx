@@ -55,13 +55,23 @@ const UpdateOrganizationalUnit = ({ open, setOpen, data, setData, update}) => {
     setOpen(false);
     }
   };
-
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
   return (
     <Modal
       isOpen={open}
       onRequestClose={handleClose}
       contentLabel="Izmeni informacije o organizacionij jedinici"
       ariaHideApp={false}
+      style={customStyles}
     >
       <div className="update-employee-modal">
         <h2>Izmeni</h2>
@@ -73,6 +83,7 @@ const UpdateOrganizationalUnit = ({ open, setOpen, data, setData, update}) => {
               id="organizationalUnitName"
               value={data.organizationalUnitName}
               onChange={handleChange}
+required
             />
           </label>
           

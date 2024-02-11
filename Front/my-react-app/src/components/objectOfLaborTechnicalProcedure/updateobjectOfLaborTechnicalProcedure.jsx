@@ -6,7 +6,16 @@ import "../style/style.css"
 import AuthContext from "../../context/authContext";
 import swal from "sweetalert";
 const UpdateObjectOfLaborTechnologicalProcedure = ({ open, setOpen, data, setData, update,  objectOfLaborId}) => {
-
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
   const context=useContext(AuthContext);
   const handleClose = () => setOpen(false);
   const[technologicalProcedures, setTechnologicalProcedures]=useState();
@@ -21,7 +30,7 @@ const UpdateObjectOfLaborTechnologicalProcedure = ({ open, setOpen, data, setDat
       } catch (error) {
         alert(error);
       }
-
+     
      
 
     };
@@ -102,6 +111,7 @@ const UpdateObjectOfLaborTechnologicalProcedure = ({ open, setOpen, data, setDat
       onRequestClose={handleClose}
       contentLabel="Izmeni informacije o materijalu predmeta rada"
       ariaHideApp={false}
+      style={customStyles}
     >
       <div className="update-employee-modal">
         <h2>Izmeni</h2>
@@ -132,6 +142,7 @@ const UpdateObjectOfLaborTechnologicalProcedure = ({ open, setOpen, data, setDat
             id="technologicalProcedureId"
             value={data.technologicalProcedureId}
             onChange={handleChange}
+required
           >
             <option value="" >
               Izaberite postupak

@@ -1,9 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import api from "../../api/api";
-
+import "../style/style.css"
 
 const AddEmployee = ({ isOpen, onRequestClose, onAddEmployee }) => {
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: '-40%',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
   const [employeeData, setEmployeeData] = useState({
   });
 
@@ -45,6 +55,7 @@ const AddEmployee = ({ isOpen, onRequestClose, onAddEmployee }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
     onAddEmployee(employeeData);
     setEmployeeData({
       firstName: "",
@@ -70,6 +81,9 @@ const AddEmployee = ({ isOpen, onRequestClose, onAddEmployee }) => {
       onRequestClose={onRequestClose}
       contentLabel="Dodaj radnika"
       ariaHideApp={false}
+      style={customStyles}
+      
+      
     >
       <h2>Dodaj radnika</h2>
       <form onSubmit={handleSubmit}>
@@ -81,6 +95,7 @@ const AddEmployee = ({ isOpen, onRequestClose, onAddEmployee }) => {
             id="firstName"
             value={employeeData.firstName}
             onChange={handleChange}
+            required
           />
         </label>
         <label>
@@ -90,6 +105,8 @@ const AddEmployee = ({ isOpen, onRequestClose, onAddEmployee }) => {
             id="lastName"
             value={employeeData.lastName}
             onChange={handleChange}
+            required
+
           />
         </label>
         <label>
@@ -99,6 +116,8 @@ const AddEmployee = ({ isOpen, onRequestClose, onAddEmployee }) => {
             id="email"
             value={employeeData.email}
             onChange={handleChange}
+            required
+
           />
         </label>
         <label>
@@ -108,6 +127,8 @@ const AddEmployee = ({ isOpen, onRequestClose, onAddEmployee }) => {
             id="password"
             value={employeeData.password}
             onChange={handleChange}
+            required
+
           />
         </label>
         <label>
@@ -117,6 +138,8 @@ const AddEmployee = ({ isOpen, onRequestClose, onAddEmployee }) => {
             id="confirmPassword"
             value={employeeData.confirmPassword}
             onChange={handleChange}
+            required
+
           />
         </label>
         <label>
@@ -126,6 +149,8 @@ const AddEmployee = ({ isOpen, onRequestClose, onAddEmployee }) => {
             id="address"
             value={employeeData.address}
             onChange={handleChange}
+            required
+
           />
         </label>
         <label>
@@ -208,6 +233,9 @@ const AddEmployee = ({ isOpen, onRequestClose, onAddEmployee }) => {
           </select>
         </label>
                 <button type="submit">Dodaj</button>
+                <button className="close-button" onClick={onRequestClose}>
+              Izadji
+            </button>
       </form>
     </Modal>
   );

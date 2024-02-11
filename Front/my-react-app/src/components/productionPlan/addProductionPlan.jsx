@@ -50,7 +50,16 @@ const AddProductionPlan = ({ isOpen, onRequestClose, onAdd }) => {
     fetchEmployees();
   }, []);
 
-
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
 
   return (
     <Modal
@@ -58,6 +67,7 @@ const AddProductionPlan = ({ isOpen, onRequestClose, onAdd }) => {
       onRequestClose={onRequestClose}
       contentLabel="Dodaj plan proizvodnje"
       ariaHideApp={false}
+      style={customStyles}
     >
       <h2>Dodaj plan proizvodnje</h2>
       <form onSubmit={handleSubmit}>
@@ -68,6 +78,7 @@ const AddProductionPlan = ({ isOpen, onRequestClose, onAdd }) => {
             id="productionPlanName"
             value={productionPlanData.productionPlanName}
             onChange={handleChange}
+required
           />
         </label>
         <label>
@@ -77,6 +88,7 @@ const AddProductionPlan = ({ isOpen, onRequestClose, onAdd }) => {
             id="description"
             value={productionPlanData.description}
             onChange={handleChange}
+required
           />
         </label>
         <label>
@@ -85,8 +97,9 @@ const AddProductionPlan = ({ isOpen, onRequestClose, onAdd }) => {
             id="objectOfLaborId"
             value={productionPlanData.objectOfLaborId}
             onChange={handleChange}
+required
           >
-            <option value="" disabled>
+            <option value="" >
               Izaberite predmet rada
             </option>
             {objectsOfLabor ? objectsOfLabor.map((workplace) => (
@@ -98,6 +111,9 @@ const AddProductionPlan = ({ isOpen, onRequestClose, onAdd }) => {
         </label>
         
           <button type="submit">Dodaj</button>
+          <button className="close-button" onClick={onRequestClose}>
+              Izadji
+            </button>
       </form>
     </Modal>
   );

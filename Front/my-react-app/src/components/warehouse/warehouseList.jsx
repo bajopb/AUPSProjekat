@@ -23,7 +23,14 @@ const context=useContext(AuthContext);
   const handleAdd = async (newData) => {
     if(context.type()!="Admin")
     {
-      alert("Dodavanje je dozvoljeno samo administratoru.");
+      swal({
+        title: "Nemate pravo na dodavanje:(",
+        text: "Dodavanje je dozvoljeno samo administratorima?",
+        icon: "warning",
+        dangerMode: true,
+        buttons: ["Ok", [true]]
+      });
+      
       return;
     }    
     
@@ -58,7 +65,14 @@ useEffect(() => {
   const handleDelete = async(id) => {
     if(context.type()!="Admin")
     {
-      alert("Brisanje je dozvoljeno samo administratoru.");
+      swal({
+        title: "Nemate pravo na brisanje:(",
+        text: "Brisanje je dozvoljeno samo administratorima.",
+        icon: "warning",
+        dangerMode: true,
+        buttons: ["Ok", [true]]
+      });
+      
       return;
     }
     try {
@@ -69,6 +83,8 @@ useEffect(() => {
         alert(error);
       }
 };
+
+
 
 return(
     <div>

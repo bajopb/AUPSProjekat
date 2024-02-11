@@ -65,6 +65,17 @@ const AddObjectOfLaborTechnologicalProcedure = ({ isOpen, onRequestClose, onAdd,
     });
   }
 
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
+
 
 
   return (
@@ -73,6 +84,7 @@ const AddObjectOfLaborTechnologicalProcedure = ({ isOpen, onRequestClose, onAdd,
       onRequestClose={onRequestClose}
       contentLabel="Dodaj materijal za tehnoloski postupal"
       ariaHideApp={false}
+      style={customStyles}
     >
       <h2>Dodaj tehnoloski postupak</h2>
       <form onSubmit={handleSubmit}>
@@ -93,6 +105,7 @@ const AddObjectOfLaborTechnologicalProcedure = ({ isOpen, onRequestClose, onAdd,
               id="orderOfExecution"
               value={objectOfLaborTechnologicalProcedureData.orderOfExecution}
               onChange={handleChangeNumber}
+              required
             />
           </label>
           
@@ -102,6 +115,7 @@ const AddObjectOfLaborTechnologicalProcedure = ({ isOpen, onRequestClose, onAdd,
             id="technologicalProcedureId"
             value={objectOfLaborTechnologicalProcedureData.technologicalProcedureId}
             onChange={handleChange}
+required
           >
             <option value="" >
               Izaberite postupak
@@ -110,10 +124,13 @@ const AddObjectOfLaborTechnologicalProcedure = ({ isOpen, onRequestClose, onAdd,
               <option key={workplace.technologicalProcedureId} value={workplace.technologicalProcedureId}>
                 {workplace.technologicalProcedureName}
               </option>
-            )) : <option>Nema</option>}
+            )) : <option disabled>Ne postoje tehnoloski postupci</option>}
           </select>
         </label>
                 <button type="submit">Dodaj</button>
+                <button className="close-button" onClick={onRequestClose}>
+              Izadji
+            </button>
       </form>
     </Modal>
   );

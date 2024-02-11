@@ -38,12 +38,26 @@ const AddWarehouse = ({ isOpen, onRequestClose, onAdd }) => {
     });
   }
 
+
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
+  
+
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
       contentLabel="Dodaj skladiste"
       ariaHideApp={false}
+      style={customStyles}
     >
       <h2>Dodaj skladiste</h2>
       <form onSubmit={handleSubmit}>
@@ -54,6 +68,7 @@ const AddWarehouse = ({ isOpen, onRequestClose, onAdd }) => {
             id="address"
             value={warehouseData.address}
             onChange={handleChange}
+required
           />
         </label>
         <label>
@@ -63,6 +78,7 @@ const AddWarehouse = ({ isOpen, onRequestClose, onAdd }) => {
             id="city"
             value={warehouseData.city}
             onChange={handleChange}
+required
           />
         </label>
         <label>
@@ -72,9 +88,13 @@ const AddWarehouse = ({ isOpen, onRequestClose, onAdd }) => {
             id="capacity"
             value={warehouseData.capacity}
             onChange={handleChangeCapacity}
+            required
           />
         </label>
                 <button type="submit">Dodaj</button>
+                <button className="close-button" onClick={onRequestClose}>
+              Izadji
+            </button>
       </form>
     </Modal>
   );

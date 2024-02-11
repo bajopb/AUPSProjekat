@@ -14,7 +14,16 @@ const UpdateEmployee = ({ open, setOpen, data, setData, update}) => {
   const [workplaces, setWorkplaces]=useState();
   const [organizationalUnits, setOrganizationalUnits]=useState();
 
-
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: '-40%',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
 
   const handlePasswordChange = (e) => { // Dodato
     setPassword(e.target.value);
@@ -37,20 +46,7 @@ const UpdateEmployee = ({ open, setOpen, data, setData, update}) => {
       return;
     }
     e.preventDefault();
-    if (
-      !data.firstName ||
-      !data.lastName ||
-      !data.address ||
-      !data.city ||
-      !data.phoneNumber ||
-      !data.organizationalUnitName ||
-      !data.workplaceName ||
-      !data.dateOfEmployment ||
-      !data.jmbg ||
-      !data.email) {
-      alert("Sva polja su obavezna");
-      return;
-    }
+    
 
     const formData=new FormData();
     Object.entries(data).forEach(([key, value]) => {
@@ -119,6 +115,7 @@ const UpdateEmployee = ({ open, setOpen, data, setData, update}) => {
       onRequestClose={handleClose}
       contentLabel="Izmeni informacije o radniku"
       ariaHideApp={false}
+      style={customStyles}
     >
       <div className="update-employee-modal">
         <h2>Update Employee</h2>
@@ -130,6 +127,7 @@ const UpdateEmployee = ({ open, setOpen, data, setData, update}) => {
               id="firstName"
               value={data.firstName}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -139,6 +137,7 @@ const UpdateEmployee = ({ open, setOpen, data, setData, update}) => {
               id="lastName"
               value={data.lastName}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -166,6 +165,7 @@ const UpdateEmployee = ({ open, setOpen, data, setData, update}) => {
               id="jmbg"
               value={data.jmbg}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -175,6 +175,7 @@ const UpdateEmployee = ({ open, setOpen, data, setData, update}) => {
               id="address"
               value={data.address}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -184,6 +185,7 @@ const UpdateEmployee = ({ open, setOpen, data, setData, update}) => {
               id="city"
               value={data.city}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -193,6 +195,7 @@ const UpdateEmployee = ({ open, setOpen, data, setData, update}) => {
               id="phoneNumber"
               value={data.phoneNumber}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -202,6 +205,7 @@ const UpdateEmployee = ({ open, setOpen, data, setData, update}) => {
               id="sallary"
               value={data.sallary}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -210,6 +214,7 @@ const UpdateEmployee = ({ open, setOpen, data, setData, update}) => {
             id="workplaceId"
             value={data.workplaceId}
             onChange={handleChange}
+required
           >
             <option value="" >
               Izaberite radno mesto
@@ -227,6 +232,7 @@ const UpdateEmployee = ({ open, setOpen, data, setData, update}) => {
             id="organizationalUnitId"
             value={data.organizationalUnitId}
             onChange={handleChange}
+required
           >
             <option value="" >
               Izaberite organizacionu jedinicu

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Modal from "react-modal";
 import api from "../../api/api";
 import { useState } from "react";
@@ -6,6 +6,7 @@ import "../style/style.css"
 import AuthContext from "../../context/authContext";
 import swal from "sweetalert";
 const UpdateProductionOrder = ({ open, setOpen, data, setData, update}) => {
+  const [objectOfLabor, setObjectsOfLabor]=useState();
   const handleClose = () => setOpen(false);
   const context=useContext(AuthContext);
   const handleChange = (e) => {
@@ -67,12 +68,45 @@ const UpdateProductionOrder = ({ open, setOpen, data, setData, update}) => {
     }
   };
 
+
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
+
+
+
+  useEffect(() => {
+    const fetchObjectsOfLabor = async () => {
+      try {
+        const res = await api.get("objectOfLabor");
+        if (res.data) {
+          setObjectsOfLabor(res.data);
+        }
+      } catch (error) {
+        alert(error);
+      }
+
+      
+
+    };
+
+    fetchObjectsOfLabor();
+  }, []);
+
   return (
     <Modal
       isOpen={open}
       onRequestClose={handleClose}
       contentLabel="Izmeni informacije o nalogu za proizvodnju"
       ariaHideApp={false}
+      style={customStyles}
     >
       <div className="update-employee-modal">
         <h2>Izmeni</h2>
@@ -84,6 +118,7 @@ const UpdateProductionOrder = ({ open, setOpen, data, setData, update}) => {
               id="startDate"
               value={data.startDate}
               onChange={handleChange}
+required
             />
           </label>
           <label>
@@ -93,12 +128,13 @@ const UpdateProductionOrder = ({ open, setOpen, data, setData, update}) => {
               id="endDate"
               value={data.endDate}
               onChange={handleChange}
+required
             />
           </label>
           <label>
             Kolicina:
             <input
-              type="date"
+              type="number"
               id="quantity"
               value={data.quantity}
               onChange={handleChangeNumber}
@@ -107,20 +143,30 @@ const UpdateProductionOrder = ({ open, setOpen, data, setData, update}) => {
           <label>
             Beleska:
             <input
-              type="date"
+              type="text"
               id="note"
               value={data.note}
               onChange={handleChange}
+required
             />
           </label>
           <label>
-            ID predmeta rada:
-            <input
-              type="date"
-              id="objectOfLaborId"
-              value={data.objectOfLaborId}
-              onChange={handleChange}
-            />
+            Predmet rada
+          <select
+            id="objectOfLaborId"
+            value={data.objectOfLaborId}
+            onChange={handleChange}
+required
+          >
+            <option value="">
+              Izaberite predmet rada
+            </option>
+            {objectOfLabor ? objectOfLabor.map((workplace) => (
+              <option key={workplace.objectOfLaborId} value={workplace.objectOfLaborId}>
+                {workplace.objectOfLaborName}
+              </option>
+            )) : <option>Nema</option>}
+          </select>
           </label>
           
           <div className="modal-buttons">

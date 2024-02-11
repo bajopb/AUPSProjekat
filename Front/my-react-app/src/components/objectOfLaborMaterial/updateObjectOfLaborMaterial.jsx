@@ -97,7 +97,16 @@ const UpdateObjectOfLaborMaterial = ({ open, setOpen, data, setData, update, obj
       [e.target.id]: value,
     });
   }
-
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+    },
+  };
 
   return (
     <Modal
@@ -105,6 +114,7 @@ const UpdateObjectOfLaborMaterial = ({ open, setOpen, data, setData, update, obj
       onRequestClose={handleClose}
       contentLabel="Izmeni informacije o materijalu predmeta rada"
       ariaHideApp={false}
+      style={customStyles}
     >
       <div className="update-employee-modal">
         <h2>Izmeni</h2>
@@ -126,6 +136,7 @@ const UpdateObjectOfLaborMaterial = ({ open, setOpen, data, setData, update, obj
               id="quantity"
               value={data.quantity}
               onChange={handleChangeQuantity}
+              required
             />
           </label>
           
@@ -135,6 +146,7 @@ const UpdateObjectOfLaborMaterial = ({ open, setOpen, data, setData, update, obj
             id="materialId"
             value={data.materialId}
             onChange={handleChange}
+required
           >
             <option value="" >
               Izaberite materijal

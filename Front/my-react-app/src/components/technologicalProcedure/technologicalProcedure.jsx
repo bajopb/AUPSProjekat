@@ -44,6 +44,7 @@ const TechnologicalProcedure=({data, onDelete, update})=>{
         <td>{data.technologicalProcedureName}</td>
         <td>{data.duration}</td>
         <td>{data.organizationalUnitName}</td>
+        <td>{data.plantName}</td>
         <td>{data.technologicalSystemName}</td>
         
         

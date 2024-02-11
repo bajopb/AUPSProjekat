@@ -40,7 +40,7 @@ const ObjectOfLaborTechnologicalProcedure=({data, onDelete, update, objectOfLabo
 
         <tr>
         <td>{data.orderOfExecution}</td>
-        <td>{data.objectOfLaborName}</td>
+        <td>{data.objectOfLaborId}</td>
         <td>{data.technologicalProcedureName}</td>
         
         
